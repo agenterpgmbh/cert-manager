@@ -223,6 +223,14 @@ type HTTP01SolverConfig struct {
 	// If this field is specified, 'ingress' **must not** be specified.
 	// +optional
 	IngressClass *string `json:"ingressClass,omitempty"`
+
+	// The ambassador based HTTP01 challenge solver will solve challenges by
+	// creating or modifying Mapping resources in order to route requests for
+	// '/.well-known/acme-challenge/XYZ' to 'challenge solver' pods that are
+	// provisioned by cert-manager for each Challenge to be completed.
+	// Only either one of Ingress or Ambassador can be set.
+	// +optional
+	Ambassador *ACMEChallengeSolverHTTP01Ambassador `json:"ambassador"`
 }
 
 // DNS01SolverConfig contains solver configuration for DNS01 challenges.

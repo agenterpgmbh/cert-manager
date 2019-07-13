@@ -274,8 +274,23 @@ type ACMEChallengeSolverHTTP01 struct {
 	// creating or modifying Ingress resources in order to route requests for
 	// '/.well-known/acme-challenge/XYZ' to 'challenge solver' pods that are
 	// provisioned by cert-manager for each Challenge to be completed.
+	// Only either one of Ingress or Ambassador can be set.
 	// +optional
 	Ingress *ACMEChallengeSolverHTTP01Ingress `json:"ingress"`
+	// The ambassador based HTTP01 challenge solver will solve challenges by
+	// creating or modifying Mapping resources in order to route requests for
+	// '/.well-known/acme-challenge/XYZ' to 'challenge solver' pods that are
+	// provisioned by cert-manager for each Challenge to be completed.
+	// Only either one of Ingress or Ambassador can be set.
+	// +optional
+	Ambassador *ACMEChallengeSolverHTTP01Ambassador `json:"ambassador"`
+}
+
+type ACMEChallengeSolverHTTP01Ambassador struct {
+	// The ApiVersion declares ambassadors api version
+	// it defaults to ambassador/v1.
+	// +optional
+	ApiVersion string `json:"apiVersion,omitempty"`
 }
 
 type ACMEChallengeSolverHTTP01Ingress struct {
